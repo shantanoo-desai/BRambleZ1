@@ -1,5 +1,5 @@
 # BRambleZ1
-Visualisation tool for Zolertia Z1 based on BRamble by Mariano Alvira (https://github.com/malvira), with modifications for Zolertia Z1 motes
+Visualisation tool for Zolertia Z1 based on BRamble by Mariano Alvira (https://github.com/malvira), with modifications for Zolertia Z1 motes. Visualize your Multi-hop Network and access CoAP Resources on it.
 ## Installation Guide
 Cloning the directory:
 <pre>
@@ -73,3 +73,7 @@ Observe similar to this:
 in `radio.py` in the **bradmin** folder a Section is marked for changing the border-router IPv6 Address. 
 Put your _global IPv6_ and _link-local_ address according to examples in the variable `addrstr`
 
+# License
+Issued under the GNU GPLv3, similar to Mariano Alvira's BRamble repository
+### Mentions
+Thanks to Kiril Petrov (http://github.com/retfie) for mentioning the modifications

@@ -1,0 +1,25 @@
+<%inherit file="base.html"/>
+
+<%block name="title">
+Login Page
+</%block>
+
+<div class="container">
+
+  <div class="six columns offset-by-five login">
+    <h2 class="cjust">Login with Password:</h2>
+    
+    % if error:
+    <p class=error><strong>Error:</strong> ${error}
+      % endif
+      
+      <form action="${url_for('login')}" method=post>
+	<dl>
+	  <dt>Password:
+	    <dd><input type=password name=password>
+	    <dd><input type=submit value=Login>
+	</dl>
+      </form>
+  </div>
+  
+</div>

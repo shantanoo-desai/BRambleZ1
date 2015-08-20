@@ -1,0 +1,47 @@
+<%inherit file="base.html"/>
+
+<%block name="title">
+Mesh View
+</%block>
+
+<%namespace name="nav" file="nav.html"/>
+${nav.bar()}
+
+<%block name="emberapp">
+<script src="static/js/meshapp.js"></script>
+</%block>
+
+<link rel="stylesheet" href="static/stylesheets/mesh.css">
+
+<div class="container">
+  <div id="mesh" class="panel ten columns" style="padding: 0"></div>
+  <div id="nodes" class="six columns clearfix">
+
+
+      <strong>NODES in the Network (EUI addresses):</strong> <br>
+      <div id="list" class="panel six columns alpha omega" style="overflow: auto">
+	
+      <script type="text/x-handlebars" data-template-name="node-list">
+	{{#view}}
+	{{each App.nodes itemViewClass="App.nodeItemView"}}
+	{{/view}}
+      </script>
+    </div>
+	<strong>Node Details and other Resources: </strong>
+    <div id="details" class="panel six columns alpha omega">
+      <script type="text/x-handlebars" data-template-name="node-details">
+	{{#if App.selectedNode}}
+	{{#view App.selectedNodeView}}
+	<h3>{{view.node.eui}}</h3>
+	<a {{bindAttr href="view.node.coapURL"}}>coap://[{{view.node.addr}}] 
+	</a>
+	{{/view}}
+	{{/if}}
+      </script>
+    </div>
+</div>
+
+<script src="static/js/d3.v2.min.js"></script>
+<script src="static/js/raphael-min.js"></script> 
+<script src="static/js/mesh.js"></script>
+

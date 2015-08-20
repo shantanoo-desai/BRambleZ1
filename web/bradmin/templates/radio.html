@@ -1,0 +1,131 @@
+<%inherit file="base.html"/>
+
+<%block name="title">
+Radio Settings
+</%block>
+
+<%block name="emberapp">
+<script src="static/js/radio.js"></script>
+<script>
+  App.radio.set('newChannel', ${radio['channel']})
+  App.radio.set('oldChannel', ${radio['channel']})
+  if (${forceReload}) {
+      App.mainView.set('progress', '1%');
+      App.radio.reload();
+  }
+</script>
+</%block>
+
+<%namespace name="nav" file="nav.html"/>
+${nav.bar()}
+<hr>
+
+<%
+   errmsg = {"resetcmd" : "Please provide a reset command"} 
+%>
+
+<script data-template-name="main" type="text/x-handlebars">
+
+  <div class="container">
+
+    <div class="four columns offset-by-six"><h3>Presets</h3></div>
+    
+    <div class="one columns offset-by-six cjust"><input type=submit value="BR12" {{action "br12" target="App.preset"}}></div>
+    <div class="two columns cjust"><input type=submit value="PC w/Econotag" {{action "econotag" target="App.preset"}}></div>
+    <div class="one columns cjust"><input type=submit value="Cooja" {{action "cooja" target="App.preset"}}></div>
+
+    <div class="four columns offset-by-six"><h3>Settings</h3></div>
+    
+    <div class="four columns offset-by-six"><h4>Radio</h4></div>
+
+    <div class="four columns offset-by-six">
+      <span class="progressBar" {{bindAttr style="progressStyle"}}>&nbsp</span>
+    </div>
+
+    <div class="two columns offset-by-six"><label>Channel:</label></div>
+
+    <div class="two columns">{{view Em.Select contentBinding="App.radio.channels" valueBinding="App.radio.newChannel"}}</div>
+    <div class="cjust four columns offset-by-six"><button {{bindAttr disabled="doingSomething"}} {{action changeChannel target="App.radio"}}>Change</button></div>
+
+    <div class="four columns offset-by-six">Radio Firmware:</div>
+    <div class="four columns offset-by-six">
+      <form enctype="multipart/form-data" method="post">
+	<input type="file" name="file">
+	<input type="submit" value="Upload" {{bindAttr disabled="doingSomething"}}>
+      </form>
+      <input type=submit value="Reload"
+	     {{action "reload" target="App.radio"}} {{bindAttr disabled="doingSomething"}}>
+      %if 'badupload' in error:
+          <div class="failure cjust">
+	    %for e in error['badupload']:
+	        ${errmsg[e]}<br>
+	    %endfor
+	  </div>
+      %endif
+      <input type=submit value="Restory Factory Firmware"
+	     {{action "factoryRestore" target="App.radio"}} {{bindAttr disabled="doingSomething"}}>
+
+    </div>
+
+    <div class="four columns offset-by-six">Radio Reset Command:</div>
+    <div class="four columns offset-by-six">
+      {{view Em.TextField valueBinding="App.radio.resetcmd"}}
+    </div>
+
+    <div class="four columns offset-by-six"><h4>Tunslip6</h4></div>
+
+    <div class="four columns offset-by-six">Fallback tunslip6 Address: 
+      <a id="tunslip-tip"><img class="tip" height="15ex" src="/static/images/question.svg"></a></div>
+    <div class="four columns offset-by-six">
+      {{view Em.TextField valueBinding="App.tunslip.address"}} 
+    </div>
+
+    <div class="four columns offset-by-six">Tunslip6 device:</div>
+    <div class="four columns offset-by-six">
+      {{view Em.TextField valueBinding="App.tunslip.device"}}
+    </div>
+
+    <div class="four columns offset-by-six">Baud:</div>
+    <div class="four columns offset-by-six">
+      {{view Em.TextField valueBinding="App.tunslip.baud"}}
+    </div>
+
+    <div class="four columns offset-by-six">
+    <input type=submit value="Save"
+	   {{action "save" target="App.tunslip"}} >
+    </div>
+
+  </div>
+    
+  </div>
+
+{{trigger doToolTips}}
+
+</script>
+
+<%doc>
+<div class="container">
+
+
+<p>java -mx512m -jar dist/cooja.jar -nogui=/home/malvira/contiki/rpl-test.csc 
+<p>PATH=$PATH:/sbin tunslip6 -v3 -a localhost -p 60001 aaaa::1/64
+<p>tunslip6 should be in path and setuid root
+<li> Print output of <strong>ps aux |grep java |grep cooja</strong> to get status of cooja sim
+
+<h3>TODO:</h3>
+<ul>
+<li> br firmware should up load network info to the BR
+<li> br firmware should take config options like where to post the data to (addr and port)
+<li> have an option to relay that info to Lowpan (do this by default)
+<li> have a way to select between options: cooja, econotag on USB, or M12 module on serial port
+<li> have br firmware uploadable
+
+<li> Do this same for tunslip6
+<li> configure things like
+  <ul>
+    <li> cooja sim to run (e.g. rpl-test.csc)
+  </ul>
+</ul>
+
+</div>
+</%doc>

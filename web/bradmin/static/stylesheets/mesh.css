@@ -1,0 +1,27 @@
+.node {
+    stroke: black;
+    fill: white;
+}
+.link.preferred {
+    stroke: black;
+    stroke-width: 4;
+}
+
+.link.normal {
+    stroke: gray;
+    stroke-width: 2;
+}
+
+.selected {
+    border: solid red 2px;
+}
+
+.panel {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    border: 1px solid gray;
+    border-radius: 15px 15px 15px 15px;
+    padding: 5%;
+    margin-bottom: 10px;
+}

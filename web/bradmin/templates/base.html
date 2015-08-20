@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title><%block name="title"/></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="static/stylesheets/base.css">
+  <link rel="stylesheet" href="static/stylesheets/skeleton.css">
+  <link rel="stylesheet" href="static/stylesheets/layout.css">
+  <link rel="stylesheet" href="static/stylesheets/jquery.qtip.css">
+
+  <link rel="stylesheet" href="static/stylesheets/bradmin.css">
+
+  <link rel="shortcut icon" href="static/images/favicon_comnets.png">
+  
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <%block name="head" />
+
+  <script src="static/js/socket.io.min.js"></script>
+  <script src="static/js/jquery-1.7.2.js"></script>
+  <script src="static/js/jquery.color-2.1.0.js"></script>
+  <script src="static/js/jquery.qtip.min.js"></script>
+  <script src="static/js/handlebars.min.js"></script>
+  <script src="static/js/ember.js"></script>
+
+  <script>
+    $.ajaxSetup({ timeout: 60000 });
+  </script>
+</head>
+
+  <body>
+
+      ${next.body()}
+      <%block name="emberapp" />
+		
+  </body>
+
+
+</html>

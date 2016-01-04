@@ -33,7 +33,7 @@ ${nav.bar()}
 	{{#if App.selectedNode}}
 	{{#view App.selectedNodeView}}
 	<h3>{{view.node.eui}}</h3>
-	<a {{bindAttr href="view.node.coapURL"}}>coap://[{{view.node.addr}}] 
+	<a {{bindAttr href="view.node.coapURL"}} target="_blank" >coap://[{{view.node.addr}}] 
 	</a>
 	{{/view}}
 	{{/if}}

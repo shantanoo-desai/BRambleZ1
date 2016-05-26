@@ -1,10 +1,11 @@
 # BRambleZ1
-Visualisation tool for Zolertia Z1 based on BRamble by Mariano Alvira (https://github.com/malvira), with modifications for Zolertia Z1 motes. Visualize your Multi-hop Network and access CoAP Resources on it.
+Visualisation tool for Zolertia Z1 based on BRamble by [Mariano Alvira](https://github.com/malvira), with modifications for Zolertia Z1 motes. Visualize your Multi-hop Network and access CoAP Resources on it.
+
 ## Installation Guide
 Cloning the directory:
-<pre>
-	https://github.com/shantanoo-desai/BRambleZ1.git
-</pre>
+
+    https://github.com/shantanoo-desai/BRambleZ1.git
+    
 ### Dependencies
 For Ubuntu/Debian based machines:
 ```
@@ -16,7 +17,7 @@ For Flask dependencies:
 	pip install Flask-OpenID Flask-Login Flask-Principal Flask-Bcrypt Flask-Mako IPy gevent-socketio
 ```
 ### Back-end CoAP
-BRambleZ1 uses SMCP (https://github.com/darconeous/smcp). Please install SMCP by visiting the repository.
+BRambleZ1 uses [SMCP](https://github.com/darconeous/smcp). Please install SMCP by visiting the repository.
 
 ## Running BRambleZ1
 Make a shebang command to avoid writing `python runserver.py` each time.
@@ -27,45 +28,56 @@ Make a shebang command to avoid writing `python runserver.py` each time.
 
 ```
 ## Border Router setup and Motes
+
 ### Border Router
-The Border Router used here is Erbium-br (https://github.com/shantanoo-desai/erbium-br). A border-router without *HTTP* but with
-*Erbium Engine* on it and implementation of `rplinfo` for Routing Information based on CoAP (NOTE: Refer to the README in erbium-br for changing in Buffer size during compilation)
+The Border Router used here is [Erbium-br](https://github.com/shantanoo-desai/erbium-br). A border-router without *HTTP* but with
+*Erbium Engine* on it and implementation of `rplinfo` for Routing Information based on CoAP 
+
+(__NOTE__: Refer to the README in erbium-br for changing in Buffer size during compilation)
+
 ## Motes in the network
-Motes are programmed with CoAPZ1(https://github.com/shantanoo-desai/coapZ1)  using Erbium in Contiki-OS. One can add/remove resources according to one's wish but _DO NOT_ remove `rplinfo.c` and `rplinfo.h` (Needed for visualization)
+Motes are programmed with [CoAPZ1](https://github.com/shantanoo-desai/coapZ1)  using Erbium in Contiki-OS. One can add/remove resources according to one's wish but _DO NOT_ remove `rplinfo.c` and `rplinfo.h` (Needed for visualization)
 
 ## STEPS
+
 ### Erbium-br
 upload the `erbr.c` on a Z1 mote and observe this:
-<pre>
-	make connect-router
-</pre>
+
+    make connect-router
+
 and if the prefix is _NOT SET_ press the *USR* button on the mote. After that observe the Router Address in JSON format:
-<pre>
+
+```
 	*** Address:bbbb::1 => bbbb:0000:0000:0000
 	Got configuration message of type P
 	Setting prefix bbbb::
 	{"addrs":["bbbb::c30c:0:0:1373","fe80::c30c:0:0:1373",]}
-</pre>
+```
+
 ### BRambleZ1
+
 do the following:
+
 1. Connect the Erbium-br as shown above
+
 2. in a new terminal 
 ```
 	cd BrambleZ1/web
 	./runserver.py
 ```
 Observe similar to this:
-<pre>
+```
 	grep_radio_ip
 	Radio ips are [u'bbbb::c30c:0:0:1373', u'fe80::c30c:0:0:1373']
 	get_radio_channel
 	Radio set to channel 26
-</pre>
+```
 3. On Mozilla Firefox type the following:
-<pre>
+```
 	localhost:5000/
-</pre>
+```
 4. You will be directed to the Login Page and the password is "default"
+
 5. after login, you will be directed to `mesh.html` where the visualisation will occur.
 
 
@@ -76,4 +88,4 @@ Put your _global IPv6_ and _link-local_ address according to examples in the var
 # License
 Issued under the GNU GPLv3, similar to Mariano Alvira's BRamble repository
 ### Mentions
-Thanks to Kiril Petrov (http://github.com/retfie) for mentioning the modifications
+Thanks to [Kiril Petrov](http://github.com/retfie) for mentioning the modifications
